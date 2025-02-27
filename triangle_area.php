@@ -1,76 +1,81 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Triangle Area Result</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 20px;
-            }
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: #ffffff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-            h1 {
-                color: #28a745;
-            }
-            p {
-                font-size: 18px;
-                color: #333;
-            }
-            .triangle {
-                margin: 20px auto;
-                width: 0;
-                height: 0;
-                border-left: calc(var(--base) / 2 * 1px) solid transparent;
-                border-right: calc(var(--base) / 2 * 1px) solid transparent;
-                border-bottom: calc(var(--height) * 1px) solid #007BFF;
-            }
-            a {
-                display: inline-block;
-                margin-top: 20px;
-                text-decoration: none;
-                color: #007BFF;
-                font-weight: bold;
-            }
-            a:hover {
-                color: #0056b3;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>ผลการคำนวณพื้นที่สามเหลี่ยม</h1>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แสดงผลการคำนวณพื้นที่รูปเรขาคณิต</title>
+    <style>
+        /* ตั้งค่าพื้นฐาน */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #0099ff, #0044cc);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        /* กล่องผลลัพธ์ */
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+            color: #0044cc;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .result p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #003d80;
+        }
+
+        /* ปุ่มลิงก์ */
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ผลการคำนวณพื้นที่รูปสามเหลี่ยม</h2>
+        <div class="result">
             <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $base = $_POST['base'];
-                    $height = $_POST['height'];
-
-                    if (is_numeric($base) && is_numeric($height) && $base > 0 && $height > 0) {
-                        $area = 0.5 * $base * $height;
-                        echo "<p>ฐาน (Base): <strong>" . htmlspecialchars($base) . "</strong></p>";
-                        echo "<p>ความสูง (Height): <strong>" . htmlspecialchars($height) . "</strong></p>";
-                        echo "<p>พื้นที่สามเหลี่ยมคือ: <strong>" . number_format($area, 2) . " ตารางหน่วย</strong></p>";
-
-                        // เพิ่มการสร้างรูปสามเหลี่ยม
-                        echo "<div class='triangle' style='--base: $base; --height: $height;'></div>";
-                    } else {
-                        echo "<p>กรุณากรอกตัวเลขที่มากกว่าศูนย์สำหรับทั้งฐานและความสูง</p>";
-                    }
-                } else {
-                    echo "<p>ไม่มีข้อมูลที่ส่งมา กรุณากลับไปที่ <a href='Triangle_area_form.php'>ฟอร์ม</a></p>";
-                }
+                $height = $_POST['height'];  // รับค่าความสูงสามเหลี่ยม
+                $width = $_POST['width'];   // รับค่าความยาวฐานจากฟอร์มที่ส่งมา
+                $area = 0.5 * $height * $width;
+                echo "<p>รูปสามเหลี่ยมที่มี <strong>ความสูง</strong> $height และ <strong>ความยาวฐาน</strong> $width</p>";
+                echo "<p><strong>พื้นที่:</strong> $area ตารางหน่วย</p>";
             ?>
-            <a href="Triangle_area_form.php">กลับไปกรอกข้อมูลใหม่</a>
         </div>
-    </body>
+        <div class="actions">
+            <a href="triangle_area_form.php" class="btn">กลับไปหน้าแรก</a>
+        </div>
+        <?php
+        function triangleArea($h,$w){
+            $a = 0.5 * $h * $w; //คำนวณพื้นที่ 1/2*ฐ*ส
+            return $a;
+        }
+        ?>
+    </div>
+</body>
 </html>
